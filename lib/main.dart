@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     YoutubeData youtubeData = YoutubeData(
       id_channel: "UC928-F8HenjZD1zNdMY42vA",
-      caption: "Cara bikin chatbot dengan flutter + backend dart websocket",
+      caption: "Hello World From Azkadev",
       powered: "Powered By Azkadev",
     );
     return Scaffold(
@@ -126,11 +126,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                         Text(
                                           youtubeData.caption,
                                           style: TextStyle(
-                                            fontSize: 50,
+                                            fontSize: 60,
                                             fontFamily: "Keep Me",
                                             foreground: Paint()
                                               ..style = PaintingStyle.stroke
-                                              ..strokeWidth = 2.0
+                                              ..strokeWidth = 2.5
                                               ..color = Colors.black,
                                           ),
                                         ),
@@ -138,12 +138,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                         Text(
                                           youtubeData.caption,
                                           style: const TextStyle(
-                                            fontSize: 50,
+                                            fontSize: 60,
                                             fontFamily: "Keep Me",
                                             color: Colors.white,
                                           ),
                                         ),
-
                                       ],
                                     ),
                                   ),
@@ -153,7 +152,10 @@ class _MyHomePageState extends State<MyHomePage> {
                             Align(
                               alignment: Alignment.bottomRight,
                               child: Padding(
-                                padding: const EdgeInsets.all(20),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                  vertical: 10,
+                                ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
