@@ -50,13 +50,13 @@ class _MyHomePageState extends State<MyHomePage> {
     return;
   }
 
-  YoutubeData youtubeData = YoutubeData(
-    id_channel: "UC928-F8HenjZD1zNdMY42vA",
-    caption: "Tutorial coding indonesia dart basic",
-    powered: "Powered By Azkadev",
-  );
   @override
   Widget build(BuildContext context) {
+    YoutubeData youtubeData = YoutubeData(
+      id_channel: "UC928-F8HenjZD1zNdMY42vA",
+      caption: "Cara bikin chatbot dengan flutter + backend dart websocket",
+      powered: "Powered By Azkadev",
+    );
     return Scaffold(
       body: ConstrainedBox(
         constraints: BoxConstraints(
@@ -126,11 +126,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                         Text(
                                           youtubeData.caption,
                                           style: TextStyle(
-                                            fontSize: 40,
+                                            fontSize: 50,
                                             fontFamily: "Keep Me",
                                             foreground: Paint()
                                               ..style = PaintingStyle.stroke
-                                              ..strokeWidth = 5
+                                              ..strokeWidth = 2.0
                                               ..color = Colors.black,
                                           ),
                                         ),
@@ -138,11 +138,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                         Text(
                                           youtubeData.caption,
                                           style: const TextStyle(
-                                            fontSize: 40,
+                                            fontSize: 50,
                                             fontFamily: "Keep Me",
                                             color: Colors.white,
                                           ),
                                         ),
+
                                       ],
                                     ),
                                   ),
