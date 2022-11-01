@@ -42,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void screnshot() async {
     Future(() async {
       RenderRepaintBoundary boundary = key.currentContext!.findRenderObject() as RenderRepaintBoundary;
-      ui.Image image = await boundary.toImage();
+      ui.Image image = await boundary.toImage(pixelRatio: 1.304);
       ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
       Uint8List pngBytes = byteData!.buffer.asUint8List();
       await File("./youtube.png").writeAsBytes(pngBytes);
@@ -70,141 +70,144 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: const EdgeInsets.all(20),
               child: RepaintBoundary(
                 key: key,
-                child: Container(
-                  width: 1280,
-                  height: 720,
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 187, 186, 186),
-                  ),
-                  child: FutureBuilder(
-                    future: yt.channels.get(youtubeData.id_channel),
-                    builder: (context, snapshot) {
-                      late String title_channel = "";
-                      late Widget profile_image = const SizedBox(
-                        height: 150,
-                        width: 150,
-                        child: CircularProgressIndicator(),
-                      );
-                      if (snapshot.data != null) {
-                        title_channel = snapshot.data!.title;
-                        profile_image = ClipRRect(
-                          borderRadius: BorderRadius.circular(100),
-                          child: Image.network(
-                            snapshot.data!.logoUrl,
-                            fit: BoxFit.fill,
-                            height: 150,
-                            width: 150,
-                          ),
+                child: AspectRatio(
+                  aspectRatio: 16 / 9,
+                  child: Container(
+                    width: 1280,
+                    height: 720,
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 187, 186, 186),
+                    ),
+                    child: FutureBuilder(
+                      future: yt.channels.get(youtubeData.id_channel),
+                      builder: (context, snapshot) {
+                        late String title_channel = "";
+                        late Widget profile_image = const SizedBox(
+                          height: 150,
+                          width: 150,
+                          child: CircularProgressIndicator(),
                         );
-                      }
-                      // print(snapshot.data!.logoUrl);
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const SizedBox(
-                            height: 50,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Flexible(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                    right: 15,
+                        if (snapshot.data != null) {
+                          title_channel = snapshot.data!.title;
+                          profile_image = ClipRRect(
+                            borderRadius: BorderRadius.circular(100),
+                            child: Image.network(
+                              snapshot.data!.logoUrl,
+                              fit: BoxFit.fill,
+                              height: 150,
+                              width: 150,
+                            ),
+                          );
+                        }
+                        // print(snapshot.data!.logoUrl);
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const SizedBox(
+                              height: 50,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Flexible(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                      right: 15,
+                                    ),
+                                    child: profile_image,
                                   ),
-                                  child: profile_image,
                                 ),
-                              ),
-                              Flexible(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 15),
-                                  child: Stack(
-                                    children: [
-                                      // Stroked text as border.
-                                      Text(
-                                        youtubeData.caption,
-                                        style: TextStyle(
-                                          fontSize: 40,
-                                          fontFamily: "Keep Me",
-                                          foreground: Paint()
-                                            ..style = PaintingStyle.stroke
-                                            ..strokeWidth = 5
-                                            ..color = Colors.black,
+                                Flexible(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 15),
+                                    child: Stack(
+                                      children: [
+                                        // Stroked text as border.
+                                        Text(
+                                          youtubeData.caption,
+                                          style: TextStyle(
+                                            fontSize: 40,
+                                            fontFamily: "Keep Me",
+                                            foreground: Paint()
+                                              ..style = PaintingStyle.stroke
+                                              ..strokeWidth = 5
+                                              ..color = Colors.black,
+                                          ),
+                                        ),
+                                        // Solid text as fill.
+                                        Text(
+                                          youtubeData.caption,
+                                          style: const TextStyle(
+                                            fontSize: 40,
+                                            fontFamily: "Keep Me",
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Align(
+                              alignment: Alignment.bottomRight,
+                              child: Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.black,
+                                        borderRadius: BorderRadius.circular(
+                                          5,
                                         ),
                                       ),
-                                      // Solid text as fill.
-                                      Text(
-                                        youtubeData.caption,
+                                      padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 5),
+                                      child: Text(
+                                        title_channel,
                                         style: const TextStyle(
                                           fontSize: 40,
-                                          fontFamily: "Keep Me",
+                                          fontFamily: "Exxaros",
                                           color: Colors.white,
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Stack(
+                                      children: [
+                                        Text(
+                                          youtubeData.powered,
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontFamily: "Keep Me",
+                                            foreground: Paint()
+                                              ..style = PaintingStyle.stroke
+                                              ..strokeWidth = 5
+                                              ..color = Colors.black,
+                                          ),
+                                        ),
+                                        // Solid text as fill.
+                                        Text(
+                                          youtubeData.powered,
+                                          style: const TextStyle(
+                                            fontSize: 20,
+                                            fontFamily: "Keep Me",
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ],
-                          ),
-                          Align(
-                            alignment: Alignment.bottomRight,
-                            child: Padding(
-                              padding: const EdgeInsets.all(20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.black,
-                                      borderRadius: BorderRadius.circular(
-                                        5,
-                                      ),
-                                    ),
-                                    padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 5),
-                                    child: Text(
-                                      title_channel,
-                                      style: const TextStyle(
-                                        fontSize: 40,
-                                        fontFamily: "Exxaros",
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Stack(
-                                    children: [
-                                      Text(
-                                        youtubeData.powered,
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          fontFamily: "Keep Me",
-                                          foreground: Paint()
-                                            ..style = PaintingStyle.stroke
-                                            ..strokeWidth = 5
-                                            ..color = Colors.black,
-                                        ),
-                                      ),
-                                      // Solid text as fill.
-                                      Text(
-                                        youtubeData.powered,
-                                        style: const TextStyle(
-                                          fontSize: 20,
-                                          fontFamily: "Keep Me",
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
                               ),
                             ),
-                          ),
-                        ],
-                      );
-                    },
+                          ],
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
