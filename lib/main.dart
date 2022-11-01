@@ -130,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                             fontFamily: "Keep Me",
                                             foreground: Paint()
                                               ..style = PaintingStyle.stroke
-                                              ..strokeWidth = 2.5
+                                              ..strokeWidth = 3.0
                                               ..color = Colors.black,
                                           ),
                                         ),
